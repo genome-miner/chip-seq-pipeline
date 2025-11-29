@@ -1,0 +1,1 @@
+cmd = macs-myeast_summits.bed sacCer3 motifs/
