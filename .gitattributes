@@ -2,3 +2,4 @@ Genome/* filter=lfs diff=lfs merge=lfs -text
 BAM/* filter=lfs diff=lfs merge=lfs -text
 SAM/* filter=lfs diff=lfs merge=lfs -text
 Quality_Trimming/* filter=lfs diff=lfs merge=lfs -text
+Data/* filter=lfs diff=lfs merge=lfs -text
