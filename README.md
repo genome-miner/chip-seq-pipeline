@@ -1,4 +1,4 @@
-# 🧬 Chip Sequence Pipeline
+# 🧬 Genome-Wide ChIP-seq Analysis and Transcription Factor Motif Enrichment in _Saccharomyces cerevisiae_
 This repository contains a complete ChIP-seq analysis workflow for transcription factor binding site identification and motif enrichment in 𝑺𝒂𝒄𝒄𝒉𝒂𝒓𝒐𝒎𝒚𝒄𝒆𝒔 𝒄𝒆𝒓𝒆𝒗𝒊𝒔𝒊𝒂𝒆. The pipeline integrates MACS2 for peak calling and HOMER for motif discovery.
 
 ---
