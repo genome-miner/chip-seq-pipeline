@@ -11,7 +11,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Analysis-ChIP--seq-blue?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Organism-Saccharomyces%20cerevisiae-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Organism-_Saccharomyces_%20_cerevisiae_-orange?style=flat-square"/>
   <img src="https://img.shields.io/badge/Peak%20Calling-MACS2-green?style=flat-square"/>
   <img src="https://img.shields.io/badge/Motif%20Analysis-HOMER-purple?style=flat-square"/>
   <img src="https://img.shields.io/badge/Platform-Illumina-lightgrey?style=flat-square"/>
