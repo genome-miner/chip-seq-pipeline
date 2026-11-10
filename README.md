@@ -1,199 +1,341 @@
-# 🧬 Genome-Wide ChIP-seq Analysis and Transcription Factor Motif Enrichment in _Saccharomyces cerevisiae_
-This repository contains a complete ChIP-seq analysis workflow for transcription factor binding site identification and motif enrichment in 𝑺𝒂𝒄𝒄𝒉𝒂𝒓𝒐𝒎𝒚𝒄𝒆𝒔 𝒄𝒆𝒓𝒆𝒗𝒊𝒔𝒊𝒂𝒆. The pipeline integrates MACS2 for peak calling and HOMER for motif discovery.
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:1A2980,100:26D0CE&height=15&section=header&width=2000"/>
+</p>
+
+<!-- Header -->
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rounded&color=0:243B55,100:141E30&height=180&section=header&text=ChIP-seq%20Analysis&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Genome-Wide%20Peak%20Calling%20%7C%20Transcription%20Factor%20Motif%20Enrichment&descAlignY=60&descSize=15" width="80%" />
+</p>
+
+<h1>Genome-Wide ChIP-seq Analysis and Transcription Factor Motif Enrichment in <i>Saccharomyces cerevisiae</i></h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Analysis-ChIP--seq-blue?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Organism-Saccharomyces%20cerevisiae-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Peak%20Calling-MACS2-green?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Motif%20Analysis-HOMER-purple?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Platform-Illumina-lightgrey?style=flat-square"/>
+  <img src="https://img.shields.io/badge/License-MIT-orange?style=flat-square"/>
+</p>
+
+<p>
+  <i>A genome-wide ChIP-seq workflow integrating sequence preprocessing, reference-based alignment, peak identification, and transcription factor motif enrichment analysis.</i>
+</p>
 
 ---
 
 ## Table of Contents
+
 <ul>
   <li><a href="#overview">Overview</a></li>
+  <li><a href="#research-question">Research Question</a></li>
   <li><a href="#dataset">Dataset</a></li>
+  <li><a href="#project-objectives">Project Objectives</a></li>
   <li><a href="#tools--technologies">Tools & Technologies</a></li>
   <li><a href="#project-structure">Project Structure</a></li>
   <li><a href="#pipeline-workflow">Pipeline Workflow</a></li>
+  <li><a href="#how-to-run-this-project">How to Run This Project</a></li>
+  <li><a href="#sequence-quality-control-and-preprocessing">Sequence Quality Control and Preprocessing</a></li>
+  <li><a href="#reference-based-alignment">Reference-Based Alignment</a></li>
+  <li><a href="#peak-calling-using-macs2">Peak Calling Using MACS2</a></li>
+  <li><a href="#motif-enrichment-analysis-using-homer">Motif Enrichment Analysis Using HOMER</a></li>
   <li><a href="#before--after-filtering-results">Before & After Filtering Results</a></li>
   <li><a href="#results-summary">Results Summary</a></li>
   <li><a href="#motif-enrichment-visualization">Motif Enrichment Visualization</a></li>
-  <li><a href="#key-concepts">Key Concepts</a></li>
-  <li><a href="#how-to-run-this-project">How to Run This Project</a></li>
   <li><a href="#future-work">Future Work</a></li>
-  <li><a href="#author--contact">Author & Contact</a></li>
-  <li><a href="#license">License</a></li>
 </ul>
 
 ---
 
-# Overview
-This project demonstrates a complete ChIP-seq workflow for identifying transcription factor binding sites and analyzing motif enrichment in yeast. Starting from raw sequencing data, the pipeline identifies high-confidence peaks and detects enriched motifs, providing insights into transcriptional regulation.
+## Overview
+
+This project presents a genome-wide ChIP-seq analysis workflow for identifying enriched DNA regions associated with transcription factor binding in *Saccharomyces cerevisiae*.
+
+The analysis starts with raw Illumina sequencing data and applies quality control, read preprocessing, and reference-based alignment to prepare the data for downstream analysis.
+
+MACS2 is used to identify enriched genomic regions through peak calling, while HOMER is applied to investigate known and de novo DNA sequence motifs within the identified peak regions.
+
+The workflow combines peak identification and motif enrichment analysis to characterize the sequence patterns associated with ChIP-seq peaks.
 
 ---
 
-# Dataset
+## Research Question
 
-**Organism:** 𝘚𝘢𝘤𝘤𝘩𝘢𝘳𝘰𝘮𝘺𝘤𝘦𝘴 𝘤𝘦𝘳𝘦𝘷𝘪𝘴𝘪𝘢𝘦
+**How can ChIP-seq analysis identify genome-wide transcription factor binding regions in *Saccharomyces cerevisiae*, and what do peak-calling and motif-enrichment results reveal about the DNA sequence patterns associated with these regions?**
 
-**Sequencing Platform:** Illumina
+This question addresses the two main components of the project:
 
-**Input Data:** SRR2155470
-
-**Reference Genome:** 𝘚𝘢𝘤𝘤𝘩𝘢𝘳𝘰𝘮𝘺𝘤𝘦𝘴 𝘤𝘦𝘳𝘦𝘷𝘪𝘴𝘪𝘢e
-
-**Output:** Peak files (BED), motif enrichment (HOMER), and analysis summary
+- Identification of enriched genomic regions using MACS2.
+- Detection of overrepresented DNA sequence motifs using HOMER.
 
 ---
 
-# Tools & Technologies
+## Dataset
 
-**Fastp:** Adapter trimming, quality filtering, and preprocessing of raw sequencing reads.
+| Parameter | Description |
+|---|---|
+| Organism | *Saccharomyces cerevisiae* |
+| Sequencing Platform | Illumina |
+| Input Dataset | <a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR2155470" target="_blank">SRR2155470</a> |
+| Reference Genome | *Saccharomyces cerevisiae* |
+| Analysis Type | ChIP-seq |
+| Primary Output | Peak files (BED) |
+| Downstream Analysis | Known and de novo motif enrichment |
 
-**FastQC:** Quality assessment of raw and trimmed reads to ensure high-quality sequencing data.
+---
 
-**BWA:** Sequence alignment of reads to the reference genome.
+## Project Objectives
 
-**Samtools:** Manipulation and processing of alignment files (BAM/SAM).
+1. Process raw ChIP-seq sequencing reads through quality assessment and preprocessing.
+2. Align processed reads against the *Saccharomyces cerevisiae* reference genome.
+3. Identify enriched genomic regions using MACS2 peak calling.
+4. Analyze known and de novo DNA sequence motifs using HOMER.
+5. Examine the enrichment patterns of identified motifs within the called peak regions.
 
-**MACS2:** Peak calling for ChIP-seq data to identify protein-DNA binding regions.
+---
 
-**HOMER:** Known and de novo motif enrichment analysis to detect transcription factor binding motifs.
+## Tools & Technologies
 
-**Bash:** Pipeline automation and workflow management for reproducible analyses.
+| Tool | Purpose |
+|---|---|
+| FastQC | Quality assessment of raw and processed sequencing reads. |
+| Fastp | Adapter trimming, quality filtering, and read preprocessing. |
+| BWA | Reference-based alignment of sequencing reads. |
+| Samtools | SAM/BAM conversion, sorting, indexing, and alignment-file processing. |
+| MACS2 | Identification of enriched genomic regions through peak calling. |
+| HOMER | Known and de novo motif enrichment analysis. |
+| SRA Toolkit | Downloading and converting SRA sequencing data into FASTQ files. |
+| Bash | Pipeline automation and workflow management. |
 
 ---
 
 ## Project Structure
+
 ```bash
 chip-seq-pipeline/
 │
 ├── Data/                     # Raw sequencing data (.sra, FASTQ)
+│
 ├── Genome/                   # Reference genome
-├── Quality_Trimming/         # fastp results
-├── SAM/                      # SAM
-├── BAM/                      # BAM files
-├── Macs2_Output/             # Peak calling
-├── Homer_Output/             # Motif analysis
-├── Document/                 # Flowchart and images
-├── Pipeline/                 # Command pipeline
+│
+├── Quality_Trimming/         # Fastp preprocessing results
+│
+├── SAM/                      # SAM alignment files
+│
+├── BAM/                      # Processed BAM alignment files
+│
+├── Macs2_Output/             # MACS2 peak-calling results
+│
+├── Homer_Output/             # HOMER motif analysis results
+│
+├── Document/                 # Workflow diagram and result images
+│
+└── Pipeline/                 # Pipeline scripts
 ```
 
 ---
 
-# Pipeline Workflow
+## Pipeline Workflow
 
-1. Download sequencing data (SRA → FASTQ using fastq-dump or fasterq-dump)
-2. Adapter trimming & quality filtering with Fastp
-3. Reference genome indexing with BWA
-4. Alignment of trimmed reads to the reference genome using BWA MEM
-5. SAM → BAM conversion using Samtools
-6. BAM file processing: sorting, indexing, and quality filtering with Samtools
-7. Peak calling using MACS2 to identify enriched DNA regions
-8. Motif enrichment analysis using HOMER (known & de novo motifs)
-9. Visualization of peaks and motifs
+The analysis follows these major steps:
 
-<p align="center">
-  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Pipeline.png?raw=true" alt="Alt text" width="150">
-</p>
-
----
-# Before & After Filtering Results
+1. Download sequencing data from NCBI SRA.
+2. Convert SRA files into FASTQ format using the SRA Toolkit.
+3. Assess raw read quality using FastQC.
+4. Perform adapter trimming and quality filtering using Fastp.
+5. Index the reference genome using BWA.
+6. Align processed reads using BWA-MEM.
+7. Convert SAM files into BAM format using Samtools.
+8. Sort, index, and process BAM files.
+9. Identify enriched genomic regions using MACS2.
+10. Perform known and de novo motif enrichment analysis using HOMER.
+11. Visualize peak-calling and motif-enrichment results.
 
 <p align="center">
-  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Before%20filtering.png?raw=true" alt="Alt text" width="900">
+  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Pipeline.png?raw=true" alt="ChIP-seq analysis workflow" width="200" />
 </p>
-
----
-
-<p align="center">
-  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/After%20filtering.png" alt="Alt text" width="900">
-</p>
-
----
-
-## Results Summary
-**Peak Calling (MACS2)**
-
-| Metric                 | Value                          |
-| -----------------      | -------------------------------|
-| Total peaks identifies | 3343                           |
-| Peak characteristics   | Sharp, promoter-proximal       |
-| Peak length            | ~250-300 bp                    |
-| Genome coverage        | Predominantly promoter regions |
-
-<br>
-
-**Motif Enrichment (HOMER)**
-
-| Rank | Motif       | % of Target Peaks | % of Background Peaks | P-value  | Notes                                         |
-|------|------------|-----------------|----------------------|----------|-----------------------------------------------|
-| 1    | TOD6       | 6.58%           | 1.02%                | 1e-101   | Strong enrichment, possible direct regulation |
-| 2    | TATA-box   | 27.48%          | 16.29%               | 1e-59    | Promoter motif, consistent with transcription initiation |
-| 3    | SFP1       | 8.88%           | 3.04%                | 1e-57    | Co-regulated ribosomal genes likely           |
-| 4    | GAGA-repeat| 59.87%          | 47.81%               | 1e-43    | Common promoter element, enriched in peaks    |
-| 5    | RLR1?      | 25.84%          | 16.64%               | 1e-40    | Potential co-factor binding                   |
-| 6    | SUT1?      | 27.51%          | 20.51%               | 1e-21    | Moderate enrichment, may reflect indirect interactions |
-
----
-
-# Motif Enrichment Visualization
-
-HOMER output includes motif logos and enrichment graphs (SVG/PNG format). Visualization shows motif distribution across target sequences and highlights highly enriched binding patterns.
-
-<p align="center">
-  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Motif%20enrichment%20result.png?raw=true" alt="Alt text" width="1200">
-</p>
-
----
-
-<p align="center">
-  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Homer%20de%20novo%20motif%20results.png?raw=true" alt="Alt text" width="1200">
-</p>
-
----
-
-# Key Concepts
-
-**ChIP-seq Analysis:** Identifying TF binding sites genome-wide
-
-**MACS2 Peak Calling:** Detecting significant enrichment regions
-
-**HOMER Motif Analysis:** Determining overrepresented sequences in peaks
-
-**Regulatory Network Inference:** Using motif information to predict co-regulation
-
-**Pipeline Automation:** Reproducible workflows using scripts
 
 ---
 
 ## How to Run This Project
-**Clone this repository:**
+
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/genome-miner/chip-seq-pipeline.git
+
 cd chip-seq-pipeline
 ```
-Download sequencing data using the SRA Toolkit.
 
-Run pipeline scripts inside the [Pipeline](https://github.com/genome-miner/chip-seq-pipeline/tree/main/Pipeline) folder.
+### 2. Download Sequencing Data
 
-Explore outputs in [Quality_Trimming](https://github.com/genome-miner/chip-seq-pipeline/tree/main/Quality_Trimming), [Macs2_Output](https://github.com/genome-miner/chip-seq-pipeline/tree/main/Macs2_Output), and [Homer_Output](https://github.com/genome-miner/chip-seq-pipeline/tree/main/Homer_Output).
+Use the SRA Toolkit to retrieve the sequencing dataset:
+
+```bash
+prefetch SRR2155470
+```
+
+Convert the downloaded SRA data into FASTQ format using `fasterq-dump` or `fastq-dump`.
+
+### 3. Run the Analysis Pipeline
+
+Navigate to the Pipeline directory:
+
+```bash
+cd Pipeline
+```
+
+Run the available pipeline scripts in the required order.
+
+### 4. Explore the Results
+
+The main output directories include:
+
+- `Quality_Trimming/` for Fastp preprocessing results.
+- `Macs2_Output/` for MACS2 peak-calling results.
+- `Homer_Output/` for HOMER motif enrichment results.
 
 ---
 
-# Future Work
+## Sequence Quality Control and Preprocessing
 
-1. **Functional annotation:** Link peaks to target genes and regulatory pathways
-2. **Comparative analysis:** Compare TF binding under different conditions
-3. **Integration with RNA-seq:** Correlate binding sites with gene expression changes
-4. **Extension to other TFs or organisms:** Adapt the pipeline for other ChIP-seq datasets
+Raw sequencing reads were assessed using FastQC to examine their initial quality characteristics.
+
+Fastp was then used for adapter trimming and quality filtering to prepare the sequencing reads for downstream alignment.
+
+The before and after filtering outputs provide a visual comparison of read quality following preprocessing.
+
+<p align="center">
+  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Before%20filtering.png?raw=true" alt="Sequencing read quality before filtering" width="900" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/After%20filtering.png" alt="Sequencing read quality after filtering" width="900" />
+</p>
 
 ---
 
-## Author & Contact
-Sana Aziz Sial  
-Biotechnologist and Bioinformatician  
-📧 [Email](sanaazizsial@gmail.com)  
-🔗 [LinkedIn](in/sana-aziz-sial-73b189265)  
+## Reference-Based Alignment
 
-_Open to collaboration and feedback!_  
+The processed sequencing reads were aligned against the *Saccharomyces cerevisiae* reference genome using BWA-MEM.
+
+Samtools was used to process the resulting alignment files, including SAM-to-BAM conversion, sorting, and indexing.
+
+The processed BAM files served as input for downstream MACS2 peak calling.
+
+---
+
+## Peak Calling Using MACS2
+
+MACS2 was used to identify enriched genomic regions from the aligned ChIP-seq data.
+
+Peak calling identified **3,343 genomic peaks**, representing regions of enrichment in the analyzed sequencing data.
+
+The reported peak characteristics included:
+
+- Sharp, promoter-proximal enrichment patterns.
+- Approximate peak lengths of 250–300 bp.
+- Predominant representation of promoter-associated regions.
+
+These results provide the genomic regions used for subsequent motif enrichment analysis.
+
+---
+
+## Motif Enrichment Analysis Using HOMER
+
+HOMER was applied to investigate known and de novo DNA sequence motifs within the identified peak regions.
+
+The analysis identified several enriched motifs, including TOD6, TATA-box, SFP1, GAGA-repeat, RLR1?, and SUT1?.
+
+Motif enrichment was evaluated by comparing the percentage of target peak sequences containing each motif against the corresponding background percentage.
+
+The resulting enrichment patterns highlight DNA sequence motifs that occur more frequently within the analyzed peak regions.
+
+---
+
+## Results Summary
+
+### MACS2 Peak Calling
+
+| Metric | Result |
+|---|---:|
+| Total Peaks Identified | 3,343 |
+| Peak Characteristics | Sharp, promoter-proximal |
+| Approximate Peak Length | 250–300 bp |
+| Genome Distribution | Predominantly promoter regions |
+
+### HOMER Motif Enrichment
+
+| Rank | Motif | Target Peaks (%) | Background (%) | P-value |
+|---:|---|---:|---:|---:|
+| 1 | TOD6 | 6.58 | 1.02 | 1e-101 |
+| 2 | TATA-box | 27.48 | 16.29 | 1e-59 |
+| 3 | SFP1 | 8.88 | 3.04 | 1e-57 |
+| 4 | GAGA-repeat | 59.87 | 47.81 | 1e-43 |
+| 5 | RLR1? | 25.84 | 16.64 | 1e-40 |
+| 6 | SUT1? | 27.51 | 20.51 | 1e-21 |
+
+The reported p-values indicate statistically significant enrichment of the listed motifs in the target peak sequences relative to the background sequences.
+
+---
+
+## Motif Enrichment Visualization
+
+HOMER generated motif logos and enrichment visualizations to represent the sequence patterns identified during the analysis.
+
+These visualizations provide a graphical representation of enriched motifs and their occurrence within target peak sequences.
+
+### Motif Enrichment Results
+
+<p align="center">
+  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Motif%20enrichment%20result.png?raw=true" alt="HOMER motif enrichment results" width="1000" />
+</p>
+
+### De Novo Motif Discovery
+
+<p align="center">
+  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Homer%20de%20novo%20motif%20results.png?raw=true" alt="HOMER de novo motif discovery results" width="1000" />
+</p>
+
+---
+
+## Future Work
+
+1. **Functional Annotation:** Associate identified peak regions with nearby genes to investigate their potential regulatory context.
+2. **Comparative ChIP-seq Analysis:** Compare transcription factor binding patterns across different experimental conditions.
+3. **Integration with RNA-seq:** Combine motif and peak information with gene-expression data to investigate potential relationships between DNA binding and transcriptional changes.
+4. **Extended Motif Analysis:** Investigate additional ChIP-seq datasets and transcription factors to compare motif enrichment patterns.
+5. **Regulatory Network Analysis:** Integrate additional experimental evidence to investigate potential transcriptional regulatory relationships.
+
+---
+
+<p align="center">
+  <i>Genome-wide peak identification and motif enrichment analysis in Saccharomyces cerevisiae.</i>
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rounded&color=0:243B55,100:141E30&height=100&section=footer" width="100%" />
+</p>
+
+---
 
 ---
 
 ## License
 This project is licensed under the [MIT License](https://github.com/genome-miner/chip-seq-pipeline/blob/main/LICENSE).
+
+---
+
+<h2 id="contact">👩‍💻 Author and Contact</h2>
+
+**Sana Aziz Sial**  
+Biotechnologist and Bioinformatician
+- 🎓 [University of Veterinary and Animal Sciences](https://www.uvas.edu.pk/)
+- 📧 [Email](sanaazizsial@gmail.com)
+- 🐙 [GitHub](https://github.com/genome-miner)
+- 🔗 [LinkedIn](in/sana-aziz-sial-73b189265)
+
+
+<p align="center">
+  <b>Thank you for visiting this repository!</b>
+</p>
