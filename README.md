@@ -39,7 +39,6 @@
   <li><a href="#reference-based-alignment">Reference-Based Alignment</a></li>
   <li><a href="#peak-calling-using-macs2">Peak Calling Using MACS2</a></li>
   <li><a href="#motif-enrichment-analysis-using-homer">Motif Enrichment Analysis Using HOMER</a></li>
-  <li><a href="#before--after-filtering-results">Before & After Filtering Results</a></li>
   <li><a href="#results-summary">Results Summary</a></li>
   <li><a href="#motif-enrichment-visualization">Motif Enrichment Visualization</a></li>
   <li><a href="#future-work">Future Work</a></li>
@@ -152,7 +151,9 @@ The analysis follows these major steps:
 11. Visualize peak-calling and motif-enrichment results.
 
 <p align="center">
-  <img src="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Pipeline.png?raw=true" alt="ChIP-seq analysis workflow" width="200" />
+  <a href="https://github.com/genome-miner/chip-seq-pipeline/blob/main/Document/Pipeline.png" target="_blank">
+    View Pipeline Visualization
+  </a>
 </p>
 
 ---
@@ -306,18 +307,6 @@ These visualizations provide a graphical representation of enriched motifs and t
 3. **Integration with RNA-seq:** Combine motif and peak information with gene-expression data to investigate potential relationships between DNA binding and transcriptional changes.
 4. **Extended Motif Analysis:** Investigate additional ChIP-seq datasets and transcription factors to compare motif enrichment patterns.
 5. **Regulatory Network Analysis:** Integrate additional experimental evidence to investigate potential transcriptional regulatory relationships.
-
----
-
-<p align="center">
-  <i>Genome-wide peak identification and motif enrichment analysis in Saccharomyces cerevisiae.</i>
-</p>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rounded&color=0:243B55,100:141E30&height=100&section=footer" width="100%" />
-</p>
-
----
 
 ---
 
